@@ -1,17 +1,40 @@
 language: android
 jdk: oraclejdk8
 
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.android/build-cache
+
 env:
   matrix:
     - ANDROID_TARGET=android-15  ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-24  ANDROID_ABI=x86
+    - ANDROID_TARGET=android-26  ANDROID_ABI=x86
 
 android:
   components:
     - tools
     - platform-tools
     - build-tools-24.0.2
+    - android-15
+    - android-19
     - android-24
+    - android-26
     - extra-android-m2repository
+
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-armeabi-v7a-android-15
+    - sys-img-armeabi-v7a-android-19
+    - sys-img-x86-google_apis-24
+    - sys-img-x86-google_apis-26
 
 licenses:
     - 'android-sdk-license-.+'
