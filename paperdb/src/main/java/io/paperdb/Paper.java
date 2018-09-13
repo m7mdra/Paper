@@ -1,8 +1,6 @@
 package io.paperdb;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.esotericsoftware.kryo.Serializer;
@@ -30,8 +28,7 @@ public class Paper {
 
     static final String DEFAULT_DB_NAME = "io.paperdb";
 
-    // Keep _application_ context
-    @SuppressLint("StaticFieldLeak") private static Context mContext;
+    private static File sDirectory;
 
     private static final ConcurrentHashMap<String, Book> mBookMap = new ConcurrentHashMap<>();
     private static final HashMap<Class, Serializer> mCustomSerializers = new HashMap<>();
@@ -41,10 +38,10 @@ public class Paper {
      * or {@link android.app.Activity#onCreate(Bundle)}.
      * <p/>
      *
-     * @param context context, used to get application context
+     * @param directory , used to get directory where papers will be saved
      */
-    public static void init(Context context) {
-        mContext = context.getApplicationContext();
+    public static void init(File directory) {
+        sDirectory = directory;
     }
 
     /**
@@ -91,7 +88,7 @@ public class Paper {
     }
 
     private static Book getBook(String location, String name) {
-        if (mContext == null) {
+        if (sDirectory == null) {
             throw new PaperDbException("Paper.init is not called");
         }
         String key = (location == null ? "" : location) + name;
@@ -99,7 +96,7 @@ public class Paper {
             Book book = mBookMap.get(key);
             if (book == null) {
                 if (location == null) {
-                    book = new Book(mContext, name, mCustomSerializers);
+                    book = new Book(sDirectory, name, mCustomSerializers);
                 } else {
                     book = new Book(location, name, mCustomSerializers);
                 }
@@ -155,9 +152,10 @@ public class Paper {
      * @deprecated use Paper.book().destroy(). NOTE: Paper.init() be called
      * before destroy()
      */
-    public static void clear(Context context) {
-        init(context);
+    public static void clear(File directory) {
+        init(directory);
         book().destroy();
+
     }
 
     /**

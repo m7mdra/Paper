@@ -1,6 +1,5 @@
 package io.paperdb;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -86,10 +85,10 @@ public class DbStoragePlainFile {
         return kryo;
     }
 
-    DbStoragePlainFile(Context context, String dbName,
+    DbStoragePlainFile(File file, String dbName,
                        HashMap<Class, Serializer> serializers) {
         mCustomSerializers = serializers;
-        mDbPath = context.getFilesDir() + File.separator + dbName;
+        mDbPath = file.getPath();
     }
 
     DbStoragePlainFile(String dbFilesDir, String dbName,

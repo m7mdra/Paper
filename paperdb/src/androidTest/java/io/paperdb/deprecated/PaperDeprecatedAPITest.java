@@ -25,8 +25,8 @@ public class PaperDeprecatedAPITest {
 
     @Before
     public void setUp() throws Exception {
-        Paper.clear(getTargetContext());
-        Paper.init(getTargetContext());
+        Paper.clear(getTargetContext().getCacheDir());
+        Paper.init(getTargetContext().getCacheDir());
     }
 
     @Test
@@ -64,7 +64,7 @@ public class PaperDeprecatedAPITest {
         assertTrue(Paper.exist("persons"));
         assertTrue(Paper.exist("persons2"));
 
-        Paper.clear(getTargetContext());
+        Paper.clear(getTargetContext().getCacheDir());
         // init() call is not required after clear()
         assertFalse(Paper.exist("persons"));
         assertFalse(Paper.exist("persons2"));
@@ -86,7 +86,7 @@ public class PaperDeprecatedAPITest {
     public void testPutGetNormalAfterReinit() {
         Paper.put("city", "Lund");
         String val = Paper.get("city", "default");
-        Paper.init(getTargetContext());// Reinit Paper instance
+        Paper.init(getTargetContext().getCacheDir());// Reinit Paper instance
         assertThat(val).isEqualTo("Lund");
     }
 

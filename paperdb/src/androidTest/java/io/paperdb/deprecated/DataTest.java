@@ -32,8 +32,8 @@ public class DataTest {
 
     @Before
     public void setUp() throws Exception {
-        Paper.clear(getTargetContext());
-        Paper.init(getTargetContext());
+        Paper.clear(getTargetContext().getCacheDir());
+        Paper.init(getTargetContext().getCacheDir());
     }
 
     @Test

@@ -1,9 +1,8 @@
 package io.paperdb;
 
-import android.content.Context;
-
 import com.esotericsoftware.kryo.Serializer;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,8 +11,8 @@ public class Book {
 
     private final DbStoragePlainFile mStorage;
 
-    protected Book(Context context, String dbName, HashMap<Class, Serializer> serializers) {
-        mStorage = new DbStoragePlainFile(context.getApplicationContext(), dbName, serializers);
+    protected Book(File file, String dbName, HashMap<Class, Serializer> serializers) {
+        mStorage = new DbStoragePlainFile(file, dbName, serializers);
     }
 
     protected Book(String dbPath, String dbName, HashMap<Class, Serializer> serializers) {

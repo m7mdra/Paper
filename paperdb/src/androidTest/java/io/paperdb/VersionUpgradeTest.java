@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class VersionUpgradeTest {
     @Before
     public void setUp() throws Exception {
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
     }
 

@@ -1,6 +1,7 @@
 package io.paperdb.benchmark;
 
 import android.os.SystemClock;
+import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.AndroidTestCase;
 import android.test.suitebuilder.annotation.LargeTest;
@@ -32,7 +33,7 @@ public class Benchmark extends AndroidTestCase {
     @Test
     public void testReadWrite500Contacts() throws Exception {
         final List<Person> contacts = TestDataGenerator.genPersonList(500);
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
         long paperTime = runTest(new PaperReadWriteContactsTest(), contacts, REPEAT_COUNT);
 
@@ -41,7 +42,7 @@ public class Benchmark extends AndroidTestCase {
         long hawkTime = runTest(new HawkReadWriteContactsTest(), contacts, REPEAT_COUNT);
 
         final List<PersonArg> contactsArg = TestDataGenerator.genPersonArgList(500);
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
         long paperArg = runTest(new PaperReadWriteContactsArgTest(), contactsArg, REPEAT_COUNT);
 
@@ -51,7 +52,7 @@ public class Benchmark extends AndroidTestCase {
     @Test
     public void testWrite500Contacts() throws Exception {
         final List<Person> contacts = TestDataGenerator.genPersonList(500);
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
         long paperTime = runTest(new PaperWriteContactsTest(), contacts, REPEAT_COUNT);
 
@@ -65,7 +66,7 @@ public class Benchmark extends AndroidTestCase {
     @Test
     public void testRead500Contacts() throws Exception {
         final List<Person> contacts = TestDataGenerator.genPersonList(500);
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
         runTest(new PaperWriteContactsTest(), contacts, REPEAT_COUNT); //Prepare
         long paperTime = runTest(new PaperReadContactsTest(), contacts, REPEAT_COUNT);

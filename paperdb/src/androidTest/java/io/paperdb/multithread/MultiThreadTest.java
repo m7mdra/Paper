@@ -38,7 +38,7 @@ public class MultiThreadTest {
 
     @Before
     public void setUp() {
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
     }
 

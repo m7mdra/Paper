@@ -29,7 +29,7 @@ public class PaperTest {
 
     @Before
     public void setUp() throws Exception {
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
     }
 
@@ -83,7 +83,7 @@ public class PaperTest {
     public void testWriteReadNormalAfterReinit() {
         Paper.book().write("city", "Lund");
         String val = Paper.book().read("city", "default");
-        Paper.init(getTargetContext());// Reinit Paper instance
+        Paper.init(getTargetContext().getCacheDir());// Reinit Paper instance
         assertThat(val).isEqualTo("Lund");
     }
 

@@ -20,7 +20,7 @@ public class CompatibilityTest {
 
     @Before
     public void setUp() throws Exception {
-        Paper.init(getTargetContext());
+        Paper.init(getTargetContext().getCacheDir());
         Paper.book().destroy();
     }
 
