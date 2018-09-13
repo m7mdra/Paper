@@ -25,7 +25,7 @@ compile 'io.paperdb:paperdb:2.6'
 RxJava wrapper for Paper is available as a separate lib [RxPaper2](https://github.com/pakoito/RxPaper2). Thanks [@pakoito](https://github.com/pakoito) for it!
 
 ### Initialize Paper
-Should be initialized once in `ANY WHERE`:
+Should be initialized once before trying to call the methods:
 
 old version used `Application` context to get a reference to local app
 cache directory but now all you need is to provide a file directory
