@@ -25,10 +25,20 @@ compile 'io.paperdb:paperdb:2.6'
 RxJava wrapper for Paper is available as a separate lib [RxPaper2](https://github.com/pakoito/RxPaper2). Thanks [@pakoito](https://github.com/pakoito) for it!
 
 ### Initialize Paper
-Should be initialized once in `Application.onCreate()`:
+Should be initialized once in `ANY WHERE`:
+
+old version used `Application` context to get a reference to local app
+cache directory but now all you need is to provide a file directory
+and that is it.
+
 
 ```java
-Paper.init(context);
+//sd card file
+File file = new File(Environment.getExternalStorageDirectory(), "paper-db")
+file.mkdir(); // will throw RuntimePermissionException , request permission first
+//local file
+File file=new File(getCacheDir())
+Paper.init(file);
 ```
 
 ### Threading

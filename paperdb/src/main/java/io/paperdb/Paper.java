@@ -1,6 +1,8 @@
 package io.paperdb;
 
+import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.esotericsoftware.kryo.Serializer;
@@ -29,6 +31,9 @@ public class Paper {
     static final String DEFAULT_DB_NAME = "io.paperdb";
 
     private static File sDirectory;
+    @Deprecated
+    @SuppressLint("StaticFieldLeak")
+    private static Context mContext;
 
     private static final ConcurrentHashMap<String, Book> mBookMap = new ConcurrentHashMap<>();
     private static final HashMap<Class, Serializer> mCustomSerializers = new HashMap<>();
@@ -43,6 +48,20 @@ public class Paper {
     public static void init(File directory) {
         sDirectory = directory;
     }
+
+
+    /**
+     * Lightweight method to init Paper instance. Should be executed in {@link Application#onCreate()}
+     * or {@link android.app.Activity#onCreate(Bundle)}.
+     * <p/>
+     *
+     * @param context context, used to get application context
+     */
+    @Deprecated
+    public static void init(Context context) {
+        mContext = context.getApplicationContext();
+    }
+
 
     /**
      * Returns book instance with the given name
