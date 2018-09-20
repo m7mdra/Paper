@@ -3,8 +3,6 @@ package io.paperdb.benchmark;
 import android.os.SystemClock;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.AndroidTestCase;
-import android.test.suitebuilder.annotation.LargeTest;
 import android.util.Log;
 
 import com.orhanobut.hawk.Hawk;
@@ -23,13 +21,12 @@ import static android.support.test.InstrumentationRegistry.getTargetContext;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
-public class Benchmark extends AndroidTestCase {
+public class Benchmark {
 
     private static final String TAG = "paper-benchmark";
 
     @SuppressWarnings("FieldCanBeLocal")
     private static final int REPEAT_COUNT = 30;
-
     @Test
     public void testReadWrite500Contacts() throws Exception {
         final List<Person> contacts = TestDataGenerator.genPersonList(500);
@@ -38,7 +35,7 @@ public class Benchmark extends AndroidTestCase {
         long paperTime = runTest(new PaperReadWriteContactsTest(), contacts, REPEAT_COUNT);
 
         Hawk.init(getTargetContext());
-        Hawk.clear();
+        Hawk.deleteAll();
         long hawkTime = runTest(new HawkReadWriteContactsTest(), contacts, REPEAT_COUNT);
 
         final List<PersonArg> contactsArg = TestDataGenerator.genPersonArgList(500);
@@ -57,7 +54,7 @@ public class Benchmark extends AndroidTestCase {
         long paperTime = runTest(new PaperWriteContactsTest(), contacts, REPEAT_COUNT);
 
         Hawk.init(getTargetContext());
-        Hawk.clear();
+        Hawk.deleteAll();
         long hawkTime = runTest(new HawkWriteContactsTest(), contacts, REPEAT_COUNT);
 
         printResults("Write 500 contacts", paperTime, hawkTime);
@@ -72,7 +69,7 @@ public class Benchmark extends AndroidTestCase {
         long paperTime = runTest(new PaperReadContactsTest(), contacts, REPEAT_COUNT);
 
         Hawk.init(getTargetContext());
-        Hawk.clear();
+        Hawk.deleteAll();
         runTest(new HawkWriteContactsTest(), contacts, REPEAT_COUNT); //Prepare
         long hawkTime = runTest(new HawkReadContactsTest(), contacts, REPEAT_COUNT);
 
@@ -86,7 +83,7 @@ public class Benchmark extends AndroidTestCase {
 
     private void printResults(String name, long paperTime, long hawkTime, long paperArgTime) {
         Log.i(TAG, String.format("..................................\n%s " +
-                "\n Paper: %d \n Paper(arg-cons): %d \n Hawk: %d",
+                        "\n Paper: %d \n Paper(arg-cons): %d \n Hawk: %d",
                 name, paperTime, paperArgTime, hawkTime));
     }
 

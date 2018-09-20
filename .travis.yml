@@ -5,10 +5,14 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-27.0.3
-    - android-28
+    - build-tools-27.0.1
+    - android-27
     - extra-android-m2repository
+    - extra
 
+    # Specify at least one system image,
+    # if you need to run emulator(s) during your tests
+    - sys-img-armeabi-v7a-android-27
 
 licenses:
     - 'android-sdk-license-.+'

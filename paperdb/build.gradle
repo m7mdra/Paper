@@ -41,7 +41,7 @@ dependencies {
     implementation 'com.esotericsoftware:kryo:4.0.1'
     implementation 'de.javakaffee:kryo-serializers:0.40'
 
-    androidTestImplementation 'com.orhanobut:hawk:1.14'
+    androidTestImplementation 'com.orhanobut:hawk:2.0.1'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.squareup.assertj:assertj-android:1.1.1'
     androidTestImplementation 'joda-time:joda-time:2.9.1'

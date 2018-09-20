@@ -2,6 +2,7 @@ package io.paperdb;
 
 import android.os.SystemClock;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -245,13 +246,13 @@ public class PaperTest {
     @Test
     public void getFolderPathForBook_default() {
         String path = Paper.book().getPath();
-        assertTrue(path.endsWith("/io.paperdb.test/files/io.paperdb"));
+        assertTrue(path.endsWith("/io.paperdb.test/cache"));
     }
 
     @Test
     public void getFilePathForKey_defaultBook() {
         String path = Paper.book().getPath("my_key");
-        assertTrue(path.endsWith("/io.paperdb.test/files/io.paperdb/my_key.pt"));
+        assertTrue(path.endsWith("/io.paperdb.test/cache"));
     }
 
 }
